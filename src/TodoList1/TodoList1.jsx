@@ -1,8 +1,37 @@
-import React from 'react'
+import React,{useState} from 'react'
 
 const TodoList1 = () => {
+
+    const [newTask, setNewTask] = useState('');
+    const [tasks, setTasks] = useState([]);
+
+    const addTask =()=>{
+        if(newTask != ''){
+            setTasks([...tasks,newTask]);
+            setNewTask('');
+        }
+    }
+
   return (
-    <div>TodoList1</div>
+    <div className='div_container_todolist'>
+        <div className='div_content_todolist'>
+            <span id='title_todolist'>Todo List</span>
+            <input
+            className='input_todolist'
+            placeholder='Enter TodoList Title'
+            value={newTask}
+            onChange={(e) => setNewTask(e.target.value)}
+            />
+            <button id='btn_add_task' onClick={addTask}>Add Task</button>
+
+            <ul>
+                {tasks.map((task,index) => (
+                    <li key={index}>{task}</li>
+                ))}
+            </ul>
+            
+        </div>
+    </div>
   )
 }
 
