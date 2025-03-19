@@ -7,9 +7,16 @@ const TodoList1 = () => {
 
     const addTask =()=>{
         if(newTask != ''){
-            setTasks([...tasks,newTask]);
+            setTasks([...tasks,{text: newTask, completed: false }]);
             setNewTask('');
         }
+    }
+
+    const toggleCompletion = (index) => {
+        const updatedTask = tasks.map((task,i) => 
+            i === index ? {...task, completed: !task.completed}: task
+        )
+        setTasks(updatedTask);
     }
 
   return (
@@ -26,7 +33,11 @@ const TodoList1 = () => {
 
             <ul>
                 {tasks.map((task,index) => (
-                    <li key={index}>{task}</li>
+                    <li 
+                    key={index}
+                    onClick={() => toggleCompletion(index)}
+                    style={{ textDecoration: task.completed ? 'line-through' : 'none' }}
+                    >{task.text}</li>
                 ))}
             </ul>
             
